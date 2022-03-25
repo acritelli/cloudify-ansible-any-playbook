@@ -1,0 +1,42 @@
+tosca_definitions_version: cloudify_dsl_1_3
+
+description: Run an arbitrary Ansible playbook
+
+imports:
+  - http://cloudify.co/spec/cloudify/6.2.0/types.yaml
+  - plugin:cloudify-ansible-plugin
+
+inputs:
+
+  playbook_name:
+    type: string
+    display_label: Playbook
+    default: create-tmpfile.yaml
+    constraints:
+      - valid_values:
+          - create-tmpfile.yaml
+          - delete-tmpfile.yaml
+
+  ansible_variables:
+    type: string
+    display_label: Variables
+    default:
+      file_name: created-by-ansible
+
+node_templates:
+
+  ansible-playbook:
+    type: cloudify.nodes.Root
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        configure:
+          implementation: ansible.cloudify_ansible.tasks.run
+          inputs:
+            site_yaml_path: { concat: [ "playbooks/", { get_input: playbook_name } ] }
+            store_facts: false
+            save_playbook: true
+            sources:
+              all:
+                hosts:
+                  localhost:
+            run_data: { get_input: ansible_variables }

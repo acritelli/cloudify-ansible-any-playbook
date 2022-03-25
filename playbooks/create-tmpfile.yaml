@@ -1,0 +1,10 @@
+---
+
+- hosts: localhost
+  vars:
+    ansible_connection: local
+  tasks:
+    - name: Touch temporary file
+      ansible.builtin.file:
+        path: "/tmp/{{ file_name }}"
+        state: touch
