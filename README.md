@@ -9,7 +9,7 @@ It is intended only as an example to show how user input (passed via the UI, CLI
 To run the playbook, simply upload and run the blueprint. This can be done in one command from the CLI:
 
 ```
-$ cfy install blueprint.yaml
+$ cfy install ansible-playbook.yaml
 ```
 
 This will run the [create-tmpfile](./playbooks/create-tmpfile.yaml) playbook, which simply creates a file in `/tmp` on the Cloudify manager. The name of the file is specified as input.
