@@ -35,4 +35,6 @@ $ cat /tmp/inputs.yaml
 playbook_name: delete-tmpfile.yaml
 ansible_variables:
   file_name: created-by-ansible
+
+$ cfy deployment update Ansible-Playbook -i /tmp/inputs.yaml
 ```
